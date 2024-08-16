@@ -9,7 +9,6 @@ const port = process.env.PORT || 9000
 app.use(cors())
 app.use(express.json())
 
-// const uri = `mongodb+srv://e-commerce-stater:Z6680rCnD0XHDYBv@cluster0.7hlvjai.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
 
 
 
@@ -26,7 +25,36 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    // Connect the client to the server	(optional starting in v4.7)
+    const productCollection = client.db('e-commerce-starter').collection('products')
+    app.get('/api/products', async (req, res) => {
+      const {search, category,brand, minPrice, maxPrice, sort} = req.query
+      let query = {}
+        if (search) {
+            query.productName = {$regex: search, $options: 'i'}
+        }
+        if (category){
+            query.category = category
+        }
+        if (brand){
+            query.brandName = brand
+        }
+        if (minPrice || maxPrice) {
+            query.price ={}
+            if( minPrice) {
+                query.price.$gte = parseFloat(minPrice)
+            }
+            if( maxPrice) {
+                query.price.$lte = parseFloat(maxPrice)
+            }
+        }
+        let products =await productCollection.find(query).toArray()
+        
+        if (sort) {
+          const sortOrder = sort === 'asc' ? 1 : -1;
+          products = products.sort((a,b) => (a.price - b.price) * sortOrder);
+        }
+        res.send(products)
+    })
     await client.connect();
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
