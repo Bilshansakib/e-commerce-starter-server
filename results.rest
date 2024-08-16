@@ -1,0 +1,1 @@
+GET http://localhost:9000/paginatedProducts?page=1&limit=10
