@@ -31,7 +31,8 @@ async function run() {
     const productCollection = client
       .db("e-commerce-starter")
       .collection("products");
-    // fetch all products
+
+      // fetch all products
     app.get("/api/products", async (req, res) => {
       const { search, category, brand, minPrice, maxPrice, sort } = req.query;
       let query = {};
@@ -61,6 +62,7 @@ async function run() {
       }
       res.send(products);
     });
+
     // pagination
     app.get("/PaginatedProducts", async (req, res) => {
       const allProduct = await productCollection.find().toArray();
@@ -108,6 +110,9 @@ app.get("/", (req, res) => {
 });
 app.get("/api/PaginatedProducts", (req, res) => {
   res.send("this is a text api....");
+});
+app.get("/api/Products", (req, res) => {
+  res.send("e-commerce-stater checker");
 });
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
