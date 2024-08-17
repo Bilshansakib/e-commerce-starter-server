@@ -8,9 +8,9 @@ const port = process.env.PORT || 9000;
 
 app.use(cors({
   origin: [
+    "https://e-commerce-starter-15646.web.app",
     "http://localhost:5173",
     "http://localhost:9000",
-    "https://e-commerce-starter-15646.web.app"
   ],
 }));
 app.use(express.json());
@@ -62,7 +62,7 @@ async function run() {
       res.send(products);
     });
     // pagination
-    app.get("/", async (req, res) => {
+    app.get("/PaginatedProducts", async (req, res) => {
       const allProduct = await productCollection.find().toArray();
       const page = parseInt(req.query.page)
       const limit = parseInt(req.query.limit)
