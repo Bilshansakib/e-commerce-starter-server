@@ -56,7 +56,7 @@ async function run() {
       res.send(products);
     });
     // pagination
-    app.get("/paginatedProducts", async (req, res) => {
+    app.get("/", async (req, res) => {
       const allProduct = await productCollection.find().toArray();
       const page = parseInt(req.query.page)
       const limit = parseInt(req.query.limit)
@@ -83,12 +83,12 @@ async function run() {
 
       res.json(results);
     });
-    await client.connect();
+    // await client.connect();
     // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log(
-      "Pinged your deployment. You successfully connected to MongoDB!"
-    );
+    // await client.db("admin").command({ ping: 1 });
+    // console.log(
+    //   "Pinged your deployment. You successfully connected to MongoDB!"
+    // );
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
