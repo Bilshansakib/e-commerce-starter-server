@@ -1,1 +1,3 @@
-GET http://localhost:9000/paginatedProducts?page=1&limit=10
+GET http://localhost:9000/paginatedProducts
+GET http://localhost:9000/paginatedProducts
+GET http://localhost:9000/api/paginatedProducts

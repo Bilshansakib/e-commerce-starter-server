@@ -106,8 +106,8 @@ run().catch(console.dir);
 app.get("/", (req, res) => {
   res.send("Hello from saaqib server....");
 });
-app.get("/hello", (req, res) => {
-  res.send("Hello from saaqib server....");
+app.get("/api/PaginatedProducts", (req, res) => {
+  res.send("this is a text api....");
 });
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
